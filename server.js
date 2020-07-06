@@ -26,6 +26,38 @@ app.get("/MealPackages", (req, res) => {
     });
 });
 
+app.get("/Login", (req, res) => {
+    //Everything DB related is in model-> Meals.js
+    res.render("Login", {
+        title: "Log in",
+    });
+});
+
+app.get("/Register", (req, res) => {
+    res.render("Register", {
+        title: "Register",
+    });
+});
+
+app.post("/sendLogin", (req, res) => {
+    const errors = [];
+
+    if (req.body.email == "") {
+        errors.push("You must enter an email");
+    }
+    if (req.body.password == "") {
+        errors.push("You must enter a password");
+    }
+
+    if (errors.length > 0) {
+        res.render("", {
+            title: "Sms Page",
+            errorMessages: errors
+        })
+    }
+    console.log(`Username: ${req.body.username}`);
+    console.log(`Password: ${req.body.password}`);
+});
 
 //Create express web server
 app.listen(PORT, () => {
