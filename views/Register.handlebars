@@ -4,20 +4,25 @@
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Register</h5>
-                    <form class="form-signin" action="/sendRegister" method="POST">
-
+                    <form class="form-signin" action="/Register/sendRegister" method="POST">
+                        {{#each errorMessages}}
+                        <p class="loginErrorMsg">{{this}}</p>
+                        {{/each}}
                         <div class="form-label-group">
-                            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="userEmail">
+                            <input type="text" id="inputEmail" class="form-control" placeholder="Email address"
+                                name="userEmail">
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="passw">
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password"
+                                name="passw">
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" name="confPass">
+                            <input type="password" id="confirmPassword" class="form-control"
+                                placeholder="Confirm Password" name="confPass">
                         </div>
-                        
+
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
                         <hr class="my-4">
                         <a href="/Login" class="btn btn-lg btn-success btn-block text-uppercase" role="button"
