@@ -1,72 +1,62 @@
-
-
 <div class="HeroSection">
-    <img src="/img/hero3.png" alt="Hero picture" style = "width:100%"> 
-    <div class = "HeroText">Dinner. Easy.</div>
+  <img src="/img/hero3.png" alt="Hero picture" style="width:100%">
+  <div class="HeroText">Dinner. Easy.</div>
 </div>
 
 <div class="main-container">
   <h1 style="text-align:center; background-color:aquamarine">Why Choose Dinner Time</h1>
   <br>
 
-   <div class="row">
+  <div class="row">
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" src="/img/quick.png" style = "width:100%">
-        <div class="card-body" style="text-align:center">
-          <h2>Quick</h2>
-          <p>Just the push of a button</p>
-        </div>
+      <img class="card-img-top" id="Imgcenter" src="/img/quick.png">
+      <div class="card-body" style="text-align:center">
+        <h2>Quick</h2>
+        <p>Just the push of a button</p>
       </div>
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" src="/img/convinient.png" style = "width:100%">
-        <div class="card-body" style="text-align:center">
-          <h2>Convienient</h2>
-          <p>No cooking required</p>
-        </div>
+      <img class="card-img-top" id="Imgcenter" src="/img/convinient.png">
+      <div class="card-body" style="text-align:center">
+        <h2>Convienient</h2>
+        <p>No cooking required</p>
       </div>
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" src="/img/delicious.png" style = "width:100%">
-        <div class="card-body" style="text-align:center">
-          <h2>Delicious</h2>
-          <p>Prepared by experienced cooks</p>
-        </div>
+      <img class="card-img-top" id="Imgcenter" src="/img/delicious.png">
+      <div class="card-body" style="text-align:center">
+        <h2>Delicious</h2>
+        <p>Prepared by experienced cooks</p>
       </div>
     </div>
 
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card mb-4 shadow-sm">
-        <img class="card-img-top" src="/img/affordable.png" style = "width:100%">
-        <div class="card-body" style="text-align:center">
-          <h2>Affordable</h2>
-          <p>Reasonably Priced</p>
-        </div>
+      <img class="card-img-top" id="Imgcenter" src="/img/affordable.png">
+      <div class="card-body" style="text-align:center">
+        <h2>Affordable</h2>
+        <p>Reasonably Priced</p>
       </div>
     </div>
 
   </div>
   <h1 style="text-align:center; background-color:aquamarine">Featured Packages</h1>
   <div class="row">
-    
-        {{#each meals}}
-        <div class="col-sm-12 col-md-6 col-lg-3">
-         <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="/img/{{this.image}}" alt="{{this.Name}} image" style = "width:100%">
-            <div class="card-body" style="text-align:center">
-              <h5 class="card-title">{{this.Name}}</h5>
-              <p class="card-text">{{this.price}}</p>
-            </div>
-          </div>
+
+    {{#each meals}}
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card mb-4 shadow-sm">
+        <img class="card-img-top" src="/img/{{this.image}}" alt="{{this.Name}} image" style="width:100%">
+        <div class="card-body" style="text-align:center">
+          <h5 class="card-title">{{this.Name}}</h5>
+          <p class="card-text">{{this.price}}</p>
         </div>
-        {{/each}}
+      </div>
+    </div>
+    {{/each}}
   </div>
-    <br><br><br><br><br>
+  <br><br><br><br><br>
 </div>
