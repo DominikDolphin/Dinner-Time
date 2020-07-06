@@ -1,0 +1,57 @@
+
+
+<div class="HeroSection">
+    <img src="/img/hero3.png" alt="Hero picture" style = "width:100%"> 
+    <div class = "HeroText">Dinner. Easy.</div>
+</div>
+
+
+<div class="main-container">
+  <h1 style="text-align:center; background-color:aquamarine">Why Choose Dinner Time</h1>
+  <br>
+   <div class="row">
+    <div class="column">
+      <img src="/img/quick.png" alt="Quick icon" style = "width:80%">
+      <h2>Quick</h2>
+      <p>Just the push of a button</p>
+
+    </div>
+    <div class="column" >
+      <img src="/img/convinient.png" alt="Quick icon" style = "width:60%">
+      <h2>Convienient</h2>
+      <p>No cooking required</p>
+    </div>
+    <div class="column">
+      <img src="/img/delicious.png" alt="Quick icon" style = "width:60%">
+      <h2>Delicious</h2>
+      <p>Prepared by experienced cooks</p>
+    </div>
+    <div class="column">
+      <img src="/img/affordable.png" alt="Quick icon" style = "width:60%">
+      <h2>Affordable</h2>
+      <p>Reasonably Priced</p>
+    </div>
+  </div>
+  <h1 style="text-align:center; background-color:aquamarine">Featured Packages</h1>
+  <div class="row">
+        {{#each meals}}
+            <div class="columnFeatured">
+                <img src="/img/{{this.image}}" alt="{{this.Name}} image" style = "width:100%">
+                <h3>{{this.Name}}</h3>
+                <p>{{this.price}}</p>
+            </div>
+        {{/each}}
+    </div>
+    <br><br><br><br><br>
+</div>
+
+
+     
+
+
+
+
+
+
+
+

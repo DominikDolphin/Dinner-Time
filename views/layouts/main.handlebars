@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            
+            <div class="topnav" id="myTopnav">
+                <div class = "logo-image">
+                <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
+                </div>
+                <a href="/">Home</a>
+                <a href="/MealPackages">Meal Packages</a>
+                 <button style="color:black; font-weight:bolder;"class="header_btn"onclick="document.getElementById('id01').style.display='block'">Log in</button>
+              
+                <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
+                
+            </div>
+        </nav>
+    </header>
+<div>
+   
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      
+    </div>
+
+    <div class="container">
+        <h1 style="text-align:center">Log in</h1>
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button class="login-button" type="submit">Login</button>
+     
+      <button onclick="document.getElementById('id02').style.display='block'; document.getElementById('id01').style.display='none'" onclick="document.getElementById('id01').style.display='none'" class="create-account-button" type="text">Create new account</button>
+       <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+     
+     
+    </div>
+  </form>
+</div>
+
+
+<div id="id02" class="modal">
+  
+  <form class="modal-content animate" action="/action_page.php" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+      
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        <label for="psw"><b>Confirm password</b></label>
+      <input type="password" placeholder="Confirm password" name="psw-conf" required>
+      <button class="login-button" type="submit">Submit</button>
+     
+      <button onclick="document.getElementById('id01').style.display='block'; document.getElementById('id02').style.display='none'" onclick="document.getElementById('id01').style.display='none'"class="create-account-button" type="text">Log in</button>
+       
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+     
+    </div>
+  </form>
+</div>
+    <main>
+        <div id="page-container">
+            <div id="content-wrap">
+                {{{body}}}
+                <br><br>
+            </div>
+        </div>
+       
+    </main>
+
+    <footer class="footer">
+        
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-youtube"></a>
+        <a href="#" class="fa fa-instagram"></a>
+
+        <a href="/">Home</a>
+        <a href="/MealPackages">Meal Packages</a>
+    </footer>
+    
+</body>
+
+</html>

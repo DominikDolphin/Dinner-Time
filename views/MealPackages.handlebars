@@ -1,0 +1,27 @@
+<!--
+    https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_login_form_modal //login
+!-->
+
+<div class="HeroSection">
+    <img src="/img/hero3.png" alt="Hero picture" style = "width:100%"> 
+    <div class = "HeroText">Meal packages</div>
+</div>
+
+
+
+    <br><br>
+    <h1 style="text-align:center">Choose a meal package perfect for you</h1>
+    <div class="main-container">
+     <div class="row">
+        {{#each meals}}
+            <div class="columnFeatured">
+                <img src="/img/{{this.image}}" alt="{{this.Name}} image" style = "width:100%">
+                <h2>{{this.Name}}</h2>
+                <h3>{{this.description}}</h3>
+                <p>{{this.price}}</p>
+            </div>
+        {{/each}}
+    </div>
+    <br><br><br><br>
+    </div>
+</div>
