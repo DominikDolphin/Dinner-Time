@@ -344,3 +344,7 @@ span.psw {
     background-color: transparent;
     border-style: none;
 }
+
+.loginErrorMsg {
+    color: red;
+}
