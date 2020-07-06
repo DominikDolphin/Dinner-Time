@@ -1,116 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{title}}</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/css/style.css" rel="stylesheet">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="/css/style.css" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <nav>
-            <div class="topnav" id="myTopnav">
-                <div class = "logo-image">
-                <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
-                </div>
-                <a href="/">Home</a>
-                <a href="/MealPackages">Meal Packages</a>
-                <a href="/Login">Log in</a>
-                <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
-                
-            </div>
-        </nav>
-    </header>
-<div>
-   
-<div id="id01" class="modal">
-  
-  <form class="modal-content animate" action="/action_page.php" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      
-    </div>
-
-    <div class="container">
-        <h1 style="text-align:center">Log in</h1>
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button class="login-button" type="submit">Login</button>
-     
-      <button onclick="document.getElementById('id02').style.display='block'; document.getElementById('id01').style.display='none'" onclick="document.getElementById('id01').style.display='none'" class="create-account-button" type="text">Create new account</button>
-       <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-     
-     
-    </div>
-  </form>
-</div>
-
-
-<div id="id02" class="modal">
-  
-  <form class="modal-content animate" action="/action_page.php" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-      
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        <label for="psw"><b>Confirm password</b></label>
-      <input type="password" placeholder="Confirm password" name="psw-conf" required>
-      <button class="login-button" type="submit">Submit</button>
-     
-      <button onclick="document.getElementById('id01').style.display='block'; document.getElementById('id02').style.display='none'" onclick="document.getElementById('id01').style.display='none'"class="create-account-button" type="text">Log in</button>
-       
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-     
-    </div>
-  </form>
-</div>
-    <main>
-        <div id="page-container">
-            <div id="content-wrap">
-                {{{body}}}
-                <br><br>
-            </div>
+  <header>
+    <nav>
+      <div class="topnav" id="myTopnav">
+        <div class="logo-image">
+          <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
         </div>
-       
+        <a href="/">Home</a>
+        <a href="/MealPackages">Meal Packages</a>
+        <a href="/Login">Log in</a>
+        <img src="/img/logo.png" alt="Dinner Time Logo" width="60" height="60">
+
+      </div>
+    </nav>
+  </header>
+  <div>
+    <main>
+      <div id="page-container">
+        <div id="content-wrap">
+          {{{body}}}
+          <br><br>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
-        
-        <a href="#" class="fa fa-facebook"></a>
-        <a href="#" class="fa fa-youtube"></a>
-        <a href="#" class="fa fa-instagram"></a>
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-youtube"></a>
+      <a href="#" class="fa fa-instagram"></a>
 
-        <a href="/">Home</a>
-        <a href="/MealPackages">Meal Packages</a>
+      <a href="/">Home</a>
+      <a href="/MealPackages">Meal Packages</a>
     </footer>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>

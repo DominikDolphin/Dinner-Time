@@ -10,7 +10,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/MealPackages", (req, res) => {
-    //Everything DB related is in model-> Meals.js
     res.render("MealPackages", {
         title: "Meal Packages",
         meals: MealsDB.getAllMeals()

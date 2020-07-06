@@ -3,34 +3,34 @@
 !-->
 
 <div class="HeroSection">
-    <img src="/img/hero3.png" alt="Hero picture" style = "width:100%"> 
-    <div class = "HeroText">Meal packages</div>
+    <img src="/img/hero3.png" alt="Hero picture" style="width:100%">
+    <div class="HeroText">Meal packages</div>
 </div>
 
 
 
-    <br><br>
-    <h1 style="text-align:center">Choose a meal package perfect for you</h1>
-    <div class="main-container">
-     <div class="row">
+<br><br>
+<h1 style="text-align:center">Choose a meal package perfect for you</h1>
+<div class="main-container">
+    <div class="row">
         {{#each meals}}
-            <div class="col-sm-12 col-md-6 col-lg-3">
-                <div class="card mb-4 shadow-sm">
-                    <img class="card-img-top" src="/img/{{this.image}}" alt="{{this.Name}} image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{this.Name}}</h5>
-                        <p class="card-text">{{this.description}}</p>
-                         <ul class="list-group list-group-flush">
-                             <li class="list-group-item"></li>
-                            <li class="list-group-item" style="text-align:center">{{this.price}}</li>
-                        </ul>
-                             
-                    </div>
-                </div>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="/img/{{this.image}}" alt="{{this.Name}} image">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.Name}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item" style="text-align:center">{{this.price}}</li>
+                    </ul>
 
+                </div>
             </div>
+
+        </div>
         <br>
         {{/each}}
     </div>
     <br><br><br><br>
-    </div>
+</div>

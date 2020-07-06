@@ -44,15 +44,13 @@ router.post("/sendRegister", (req, res) => {
             errorMessages: errors
         })
     } else {
-        //const { email } = req.body;
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
         const msg = {
-            to: "dominik.thibaudeau@gmail.com",
+            to: `${req.body.userEmail}`,
             from: "dominik.thibaudeau@gmail.com",
             subject: 'Dinner Time Account Registration',
-            // text: 'Hello! Thank you for registering and account with Dinner Time! Enjoy amazing food just by the tap of a few buttons',
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            html: 'Thank you for registering with Dinner Time. Enjoy amazing food just by the tap of a few buttons!',
         };
 
         sgMail.send(msg)
