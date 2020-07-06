@@ -44,8 +44,24 @@ router.post("/sendRegister", (req, res) => {
             errorMessages: errors
         })
     } else {
-        //Chahge this to some page
-        res.redirect("/");
+        //const { email } = req.body;
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+        const msg = {
+            to: "dominik.thibaudeau@gmail.com",
+            from: "dominik.thibaudeau@gmail.com",
+            subject: 'Dinner Time Account Registration',
+            // text: 'Hello! Thank you for registering and account with Dinner Time! Enjoy amazing food just by the tap of a few buttons',
+            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+        };
+
+        sgMail.send(msg)
+            .then(() => {
+                res.redirect("/");
+            })
+            .catch(err => {
+                console.log(`Error ${err}`);
+            })
     }
 });
 

@@ -1,9 +1,11 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 const bodyParser = require('body-parser');
 
+//load environment varibale file
+require('dotenv').config({ path: "./config/keys.env" });
 
 app.use(express.static("public"));
 
