@@ -34,24 +34,18 @@
   </div>
   <h1 style="text-align:center; background-color:aquamarine">Featured Packages</h1>
   <div class="row">
+    
         {{#each meals}}
-            <div class="columnFeatured">
-                <img src="/img/{{this.image}}" alt="{{this.Name}} image" style = "width:100%">
-                <h3>{{this.Name}}</h3>
-                <p>{{this.price}}</p>
+        <div class="col-sm-12 col-md-6 col-lg-3">
+         <div class="card mb-4 shadow-sm">
+            <img class="card-img-top" src="/img/{{this.image}}" alt="{{this.Name}} image" style = "width:100%">
+            <div class="card-body" style="text-align:center">
+              <h5 class="card-title">{{this.Name}}</h5>
+              <p class="card-text">{{this.price}}</p>
             </div>
+          </div>
+        </div>
         {{/each}}
-    </div>
+  </div>
     <br><br><br><br><br>
 </div>
-
-
-     
-
-
-
-
-
-
-
-
