@@ -18,10 +18,10 @@ router.get("/sendLogin", (req, res) => {
 router.post("/sendLogin", (req, res) => {
     const errors = [];
 
-    if (req.body.userEmail == "" || req.body.userEmail == undefined) {
+    if (req.body.userEmail == "") {
         errors.push("You must enter an email");
     }
-    if (req.body.password == "" || req.body.password == undefined) {
+    if (req.body.password == "") {
         errors.push("You must enter a password");
     }
 
