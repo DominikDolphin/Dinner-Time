@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const userInfo = { mail: "" };
 router.get("/", (req, res) => {
     res.render("Login", {
         title: "Log in",
@@ -28,7 +28,8 @@ router.post("/sendLogin", (req, res) => {
     if (errors.length > 0) {
         res.render("Login", {
             title: "Login",
-            errorMessages: errors
+            errorMessages: errors,
+            info: userInfo,
         })
     } else {
         //Chahge this to some page

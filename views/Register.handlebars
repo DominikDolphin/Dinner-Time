@@ -9,13 +9,21 @@
                         <p class="loginErrorMsg">{{this}}</p>
                         {{/each}}
                         <div class="form-label-group">
+                            <input type="text" id="inputName" class="form-control" placeholder="First Name"
+                                name="firstName" value="{{info.fName}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="inputLName" class="form-control" placeholder="Last Name"
+                                name="lastName" value="{{info.lName}}">
+                        </div>
+                        <div class="form-label-group">
                             <input type="text" id="inputEmail" class="form-control" placeholder="Email address"
-                                name="userEmail">
+                                name="userEmail" value="{{info.mail}}">
                         </div>
 
                         <div class="form-label-group">
                             <input type="password" id="inputPassword" class="form-control" placeholder="Password"
-                                name="passw">
+                                name="passw" value="{{info.passw}}">
                         </div>
 
                         <div class="form-label-group">
