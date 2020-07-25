@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require("../db.js");
 const inputedInfo = {
     fName: "",
     lName: "",
@@ -37,7 +38,7 @@ router.post("/sendRegister", (req, res) => {
     if (req.body.lastName.match(name) == false) {
         errors.push("Last name can only contain letters, from 3 to 20");
     }
-    if (req.body.userEmail == "") {
+    if (req.body.email == "") {
         errors.push("You must enter an email");
     }
 
@@ -84,6 +85,13 @@ router.post("/sendRegister", (req, res) => {
             .catch(err => {
                 console.log(`Error ${err}`);
             })
+
+        db.addStudent(req.body).then(() => {
+            res.redirect("/");
+        }).catch((err) => {
+            console.log("Error adding student: " + err);
+            res.redirect("/");
+        })
     }
 });
 
