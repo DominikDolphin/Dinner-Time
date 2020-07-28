@@ -26,7 +26,7 @@ app.set('view engine', 'handlebars');
 const genController = require("./controller/general");
 const registrationController = require("./controller/registration");
 const loginController = require("./controller/login");
-
+const usersController = require("./controller/users");
 
 db.initialize()
     .then(() => {
@@ -43,7 +43,7 @@ db.initialize()
 app.use("/", genController);
 app.use("/Login", loginController);
 app.use("/Register", registrationController);
-
+app.use("/users", usersController);
 //Create express web server
 /*app.listen(PORT, () => {
     console.log("Web server is up and running");

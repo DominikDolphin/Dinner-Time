@@ -42,18 +42,18 @@ router.post("/sendRegister", (req, res) => {
         errors.push("You must enter an email");
     }
 
-    if (req.body.passw == "") {
+    if (req.body.password == "") {
         errors.push("You must enter a password");
     }
 
-    if ((req.body.passw.match(regex)) == false) {
+    if ((req.body.password.match(regex)) == false) {
         errors.push("Password must be between 6-12 characters");
     }
 
     if (req.body.confPass == "") {
         errors.push("You must confirm Password");
     }
-    if (req.body.confPass != req.body.passw) {
+    if (req.body.confPass != req.body.password) {
         errors.push("Passwords do not match");
     }
     inputedInfo.fName = req.body.firstName;

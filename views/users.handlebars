@@ -1,0 +1,14 @@
+<div class="container">
+        {{#each students}}
+        <div class="row">
+            <div class="col-md-3">First Name: {{firstName}}</div>
+            <div class="col-md-3">Last Name:{{lastName}}</div>
+            <div class="col-md-3">Email: {{email}}</div>
+            <div class="col-md-3">Password: {{password}}</div>
+        </div>
+        </br>
+        {{else}}
+            <h4>No students were found</h4>
+        {{/each}}
+    {{!-- {{/if}} --}}
+</div>

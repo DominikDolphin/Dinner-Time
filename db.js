@@ -19,8 +19,8 @@ let studentSchema = new Schema({
     },
     firstName: String,
     lastName: String,
-
-    //  international: Boolean
+    password: String
+        //  international: Boolean
 });
 
 let classSchema = new Schema({
@@ -37,7 +37,7 @@ let Classes;
 
 module.exports.initialize = function() {
     return new Promise((resolve, reject) => {
-        let db = mongoose.createConnection("mongodb+srv://admin:asdasd@cluster0.kpvqi.mongodb.net/Web322DinnerTime?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+        let db = mongoose.createConnection(process.env.DATABASE_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 
         db.on('error', (err) => {
             reject(err);
@@ -46,7 +46,7 @@ module.exports.initialize = function() {
         db.once('open', () => {
             //create a collection called "students" and "courses"
             //use the above schemas for their layout
-            Students = db.model("newUsers", studentSchema);
+            Students = db.model("newusers", studentSchema);
             Classes = db.model("courses", classSchema);
             resolve();
         });
@@ -98,6 +98,19 @@ module.exports.getStudents = function(data) {
     });
 }
 
+module.exports.getAllCarsP = () => {
+    return new Promise((resolve, reject) => {
+        if (Students.length == 0) {
+            reject("There are no cars available");
+            return;
+        } else {
+            setTimeout(() => {
+                resolve(Students);
+                return;
+            }, 1000);
+        }
+    });
+}
 
 
 
