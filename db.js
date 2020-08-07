@@ -192,3 +192,29 @@ const filteredMongoose = (arrayOfMongooseDocuments) => {
     }
     return tempArray;
 };
+
+module.exports.validateUser = (data) => {
+    return new Promise((resolve, reject) => {
+        if (data) {
+            this.getStudentsByEmail(data.email).then((retStudent) => {
+                //get the data and check if passwords match hash
+                // first is non-hashed pw, vs 2nd which is a hashed pw
+                bcrypt.compare(data.password, retStudent[0].password).then((result) => {
+                    if (result) {
+                        //for added security is return a student object w/o password
+                        resolve(retStudent);
+                        //resolve and pass the user back
+                    } else {
+                        reject("password don't match");
+                        return;
+                        //reject pass error
+                    }
+                    // result === true
+                });
+            }).catch((err) => {
+                reject(err);
+                return;
+            });
+        }
+    });
+}

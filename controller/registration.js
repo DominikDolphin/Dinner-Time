@@ -90,7 +90,7 @@ router.post("/sendRegister", (req, res) => {
             res.redirect("/");
         }).catch((err) => {
             console.log("Error adding student: " + err);
-            res.redirect("/");
+            res.redirect("registration");
         })
     }
 });
