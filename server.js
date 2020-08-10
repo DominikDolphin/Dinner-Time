@@ -39,7 +39,8 @@ app.get("/logout", (req, res) => {
     res.redirect("/Login");
 });
 
-
+//setup body parser to recieve json text from AJAX calls 
+app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
 
 //Use handlebars template engine
@@ -52,7 +53,8 @@ const registrationController = require("./controller/registration");
 const loginController = require("./controller/login");
 const usersController = require("./controller/users");
 const dashboardController = require("./controller/dashboard");
-
+const packageDetailsController = require("./controller/packageDetails");
+const cartController = require("./controller/cart");
 db.initialize()
     .then(() => {
         console.log("Data read successfully");
@@ -69,4 +71,6 @@ app.use("/", genController);
 app.use("/Login", loginController);
 app.use("/Register", registrationController);
 app.use("/users", usersController);
+app.use("/packages", packageDetailsController);
 app.use("/Dashboard", dashboardController);
+app.use("/cart", cartController);

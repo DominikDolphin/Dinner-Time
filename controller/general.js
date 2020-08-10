@@ -31,9 +31,3 @@ router.get("/MealPackages", (req, res) => {
 });
 
 module.exports = router;
-/*
-db.getUsers().then((data) => {
-    res.render("users", { students: (data.length != 0) ? data : undefined });
-}).catch((err) => {
-    res.render("users"); //add an error message or something
-});*/
