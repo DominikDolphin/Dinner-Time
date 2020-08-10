@@ -15,7 +15,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/sendRegister", (req, res) => {
-
     db.validateUserRegistration(req.body).then((data) => {
         db.addUser(data).then((user) => {
             inputedInfo.fName = req.body.firstName;

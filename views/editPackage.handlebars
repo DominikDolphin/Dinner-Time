@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-10 col-lg-10 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Edit Package</h5>
+                    <form class="form-signin" action="/dashboard/editPackage" method="POST">
+
+                        {{#each errorMessages}}
+                        <p class="loginErrorMsg">{{this}}</p>
+                        {{/each}}
+                         <div class="form-label-group">
+                            <input type="text" id="packageID" class="form-control" placeholder="Package ID"
+                                name="packageID" value="{{package.packageID}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packageName" class="form-control" placeholder="Package Name"
+                                name="packageName" value="{{package.packageName}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packagePrice" class="form-control" placeholder="Package Price"
+                                name="packagePrice" value="{{package.packagePrice}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packageDescription" class="form-control" placeholder="Package Description"
+                                name="packageDescription" value="{{package.packageDescription}}">
+                        </div>
+
+                       <div class="form-label-group">
+                            <input type="text" id="packageCategory" class="form-control" placeholder="Package Category"
+                                name="packageCategory" value="{{package.packageCategory}}">
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" id="packageNumberOfMeals" class="form-control" placeholder="Number Of Meals"
+                                name="packageNumberOfMeals" value="{{package.packageNumberOfMeals}}">
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" id="packageImageURL" class="form-control" placeholder="Image URL"
+                                name="packageImageURL" value="{{package.packageImageURL}}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label for="international">Featured:</label>
+                                    {{#if package.featured}}
+                                    <input class="form-control" type="checkbox"  name="packageFeatured"/ checked>
+                                    {{else}}
+                                    <input class="form-control" type="checkbox"  name="packageFeatured">
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+                        
+                         <a href="/Dashboard/DataClerk" class="btn btn-lg btn-danger btn-block text-uppercase" role="button"
+                            aria-pressed="true">Cancel</a>
+
+                        
+                        
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

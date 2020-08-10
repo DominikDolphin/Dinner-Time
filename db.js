@@ -1,17 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
 let Schema = mongoose.Schema;
-/*
-let studentSchema = new Schema({
-    studentNumber: {
-        type: Number,
-        unique: true
-    },
-    name: String,
-    email: String,
-    international: Boolean
-});
-*/
+
 let userSchema = new Schema({
     email: {
         type: String,
@@ -27,16 +17,26 @@ let userSchema = new Schema({
     //  international: Boolean
 });
 
-let classSchema = new Schema({
-    courseCode: String,
-    section: String,
-    year: String,
-    numberOfStudents: Number
-});
+let mealPackageSchema = new Schema({
+    packageID: {
+        type: Number,
+        unique: true
+    },
+    packageName: String,
+    packagePrice: Number,
+    packageDescription: String,
+    packageCategory: String,
+    packageNumberOfMeals: Number,
+    featured: {
+        type: Boolean,
+        default: false
+    },
+    packageImageURL: String
+})
 
 //our local student/class template schemas
 let Users;
-
+let MealPackage;
 
 module.exports.initialize = function() {
     return new Promise((resolve, reject) => {
@@ -50,10 +50,59 @@ module.exports.initialize = function() {
             //create a collection called "students" and "courses"
             //use the above schemas for their layout
             Users = db.model("newusers", userSchema);
-
+            MealPackage = db.model("mealPackages", mealPackageSchema);
             resolve();
         });
 
+    });
+}
+
+module.exports.getFeaturedMeals = () => {
+    return new Promise((resolve, reject) => {
+        MealPackage.find({ top: true })
+            .exec()
+            .then((packages) => {
+                resolve(packages.map((packages) => packages.toObject()));
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
+
+module.exports.getPackages = () => {
+    return new Promise((resolve, reject) => {
+        MealPackage.find()
+            .exec()
+            .then((package) => {
+                resolve(package.map((package) => package.toObject()));
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
+
+module.exports.addPackage = function(data) {
+    return new Promise((resolve, reject) => {
+
+
+
+        for (var formEntry in data) {
+            if (data[formEntry] == "")
+                data[formEntry] = null;
+        }
+        var newMeal = new MealPackage(data);
+        data.featured = (data.featured) ? true : false;
+        newMeal.save((err) => {
+            if (err) {
+                console.log("There was an error with creating meal: " + err);
+                reject(err);
+            } else {
+                console.log(`Saved meal`);
+                resolve();
+            }
+        })
     });
 }
 
@@ -108,6 +157,8 @@ module.exports.getUsers = function(data) {
     });
 }
 
+
+
 module.exports.getUsersByEmail = function(inEmail) {
     return new Promise((resolve, reject) => {
         //email has to be spelled the same as in the data base
@@ -137,6 +188,30 @@ const filteredMongoose = (arrayOfMongooseDocuments) => {
     }
     return tempArray;
 };
+
+module.exports.validateCreatePackage = (data) => {
+    return new Promise((resolve, reject) => {
+        data.errors = [];
+
+        //Making sure the clerk doesnt keep any fields empty
+        if (data.packageID == "") { data.errors.push("You must enter a package id"); }
+        if (data.packageName == "") { data.errors.push("You must enter a package name"); }
+        if (data.packagePrice == "") { data.errors.push("You must enter a package price"); }
+        if (data.packageDescription == "") { data.errors.push("You must enter a package description"); }
+        if (data.packageCategory == "") { data.errors.push("You must enter a package category"); }
+        if (data.packageNumberOfMeals == "") { data.errors.push("You must enter the number of meals"); }
+        if (data.packageImageURL == "") { data.errors.push("You must enter an image URL"); }
+
+        //Dont forget featured boolean <3
+
+        if (data.errors.length > 0) {
+            reject(data);
+        } else {
+            resolve(data);
+        }
+
+    });
+}
 
 module.exports.validateUserRegistration = (data) => {
     return new Promise((resolve, reject) => {
@@ -227,3 +302,85 @@ module.exports.validateUserLogin = (data) => {
             });
     });
 };
+
+
+module.exports.editPackage = (editData) => {
+    return new Promise((resolve, reject) => {
+        editData.featured = (editData.featured) ? true : false;
+
+        //MealPackage.updateOne({ packageName: editData.packageName }, {
+        MealPackage.updateOne({ packageID: editData.packageID }, {
+                $set: {
+                    packageID: editData.packageID,
+                    packageName: editData.packageName,
+                    packagePrice: editData.packagePrice,
+                    packageDescription: editData.packageDescription,
+                    packageCategory: editData.packageCategory,
+                    packageNumberOfMeals: editData.packageNumberOfMeals,
+                    packageImageURL: editData.packageImageURL,
+                    featured: editData.featured
+
+                }
+
+            })
+            .exec()
+            .then(() => {
+                console.log(`Package ${ editData.packageName} has been updated`);
+                resolve();
+            }).catch((err) => {
+                reject(err);
+            });
+
+    });
+}
+
+module.exports.getPackageByName = function(inPackage) {
+    return new Promise((resolve, reject) => {
+        //email has to be spelled the same as in the data base
+        MealPackage.find({ packageName: inPackage }) //gets all and returns an array. Even if 1 or less entries
+            .exec() //tells mongoose that we should run this find as a promise.
+            .then((returnedPackages) => {
+                if (returnedPackages.length != 0)
+                //resolve(filteredMongoose(returnedStudents));
+                    resolve(returnedPackages.map(item => item.toObject()));
+                else
+                    reject("No Packages found");
+            }).catch((err) => {
+                console.log("Error Retriving packages:" + err);
+                reject(err);
+            });
+    });
+}
+module.exports.getPackageByID = function(inPackage) {
+    return new Promise((resolve, reject) => {
+        //email has to be spelled the same as in the data base
+        MealPackage.find({ packageID: inPackage }) //gets all and returns an array. Even if 1 or less entries
+            .exec() //tells mongoose that we should run this find as a promise.
+            .then((returnedPackages) => {
+                if (returnedPackages.length != 0)
+                //resolve(filteredMongoose(returnedStudents));
+                    resolve(returnedPackages.map(item => item.toObject()));
+                else
+                    reject("No Packages found");
+            }).catch((err) => {
+                console.log("Error Retriving packages:" + err);
+                reject(err);
+            });
+    });
+}
+
+module.exports.deletePackageByID = (inID) => {
+    //return new Promise((resolve,reject)=>{
+    setTimeout(function() {
+        MealPackage.deleteOne({ packageID: inID })
+            .exec() //run as a promise
+            .then(() => {
+                //resolve();
+            }).catch(() => {
+                // reject();  //maybe a problem communicating with server
+            });
+    }, 2000);
+
+
+    //});
+}

@@ -6,8 +6,44 @@
             <div class="col-md-3">Email: {{user.email}}</div>
             <div class="col-md-3">Password: {{user.password}}</div>
      </div>
+
     <button type="button" class="btn btn-danger" onclick="location.href='/Dashboard/Logout'">Logout</button>
-    <!--{{#each students}}  -->
+    <button type="button" class="btn btn-success" onclick="location.href='/Dashboard/createPackage'">Create new package</button>
+
+
+    {{#if user.admin}}
+    <h1>Welcome, Admin</h1>
+    <div class="row">
+    {{#each packages}}
+    <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{{packageImageURL}}" alt="{{packageName}} image">
+                <div class="card-body">
+                    <h5 class="card-title">{{packageName}}</h5>
+                    <p class="card-text">{{packageDescription}}</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"></li>
+                        <li class="list-group-item" style="text-align:center">${{packagePrice}}<br>Meals in Package: {{packageNumberOfMeals}}</li>
+                        <li class="list-group-item"></li>
+                        <!--<button type="button" class="btn btn-primary" onclick="location.href='/Dashboard/editPackage?name={{packageName}}'">Edit</button>!-->
+                        <div class="row">
+                            <div class=" col-md-auto">
+                            <a href="/Dashboard/editPackage?id={{packageID}}" class="btn btn-primary">Edit</a>
+                            </div>
+                            <div class=" col-md-auto">
+                            <a href="/Dashboard/delete?id={{packageID}}" class="btn btn-danger">Delete</a>
+                            </div>
+                         </div>
+                    </ul>
+
+                </div>
+            </div>
+
+    </div>
+        <br>
+        
+    {{/each}}
+    </div>
     
-   <!-- {{/each}} -- >
+    {{/if}}
 </div>

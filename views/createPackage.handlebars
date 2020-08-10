@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-10 col-lg-10 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Create Package</h5>
+                    <form class="form-signin" action="/dashboard/createPackage" method="POST">
+
+                        {{#each errorMessages}}
+                        <p class="loginErrorMsg">{{this}}</p>
+                        {{/each}}
+                        
+                        <div class="form-label-group">
+                            <input type="text" id="packageID" class="form-control" placeholder="Package ID"
+                                name="packageID" value="{{info.fName}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packageName" class="form-control" placeholder="Package Name"
+                                name="packageName" value="{{info.fName}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packagePrice" class="form-control" placeholder="Package Price"
+                                name="packagePrice" value="{{info.lName}}">
+                        </div>
+                        <div class="form-label-group">
+                            <input type="text" id="packageDescription" class="form-control" placeholder="Package Description"
+                                name="packageDescription" value="{{info.mail}}">
+                        </div>
+
+                       <div class="form-label-group">
+                            <input type="text" id="packageCategory" class="form-control" placeholder="Package Category"
+                                name="packageCategory" value="{{info.mail}}">
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" id="packageNumberOfMeals" class="form-control" placeholder="Number Of Meals"
+                                name="packageNumberOfMeals" value="{{info.mail}}">
+                        </div>
+
+                        <div class="form-label-group">
+                            <input type="text" id="packageImageURL" class="form-control" placeholder="Image URL"
+                                name="packageImageURL" value="{{info.mail}}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label for="international">Featured:</label>
+                                    <input class="form-control" type="checkbox"  name="packageFeatured"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -35,8 +35,7 @@ router.post("/sendLogin", (req, res) => {
             info: userInfo,
         })
     } else {
-        //Chahge this to some page
-        //res.redirect("/");
+
         let userInfo = {};
         userInfo.email = req.body.email;
         userInfo.password = req.body.password;
