@@ -57,6 +57,42 @@ router.post("/addProduct", (req, res) => {
         })
 });
 
+router.post("/removeItem", (req, res) => { //return the cart to re-render the page
+    var cartData = {
+        cart: [],
+        total: 0
+    };
+    cart.removeItem(req.body.name).then(cart.checkout)
+        .then((inTotal) => {
+            cartData.total = inTotal;
+            cart.getCart().then((items) => {
+                cartData.cart = items;
+                res.json({ data: cartData });
+            }).catch((err) => { res.json({ error: err }); });
+        }).catch((err) => {
+            res.json({ error: err });
+        })
+});
+
+router.get("/cart", (req, res) => {
+    var cartData = {
+        cart: [],
+        total: 0
+    };
+    cart.getCart().then((items) => {
+            cartData.cart = items;
+            cart.checkout().then((total) => {
+                cartData.total = total;
+                res.render("checkout", { data: cartData, layout: false });
+            }).catch((err) => {
+                res.send("There was an error getting total: " + err);
+            });
+        })
+        .catch((err) => {
+            res.send("There was an error: " + err);
+        });
+});
+
 
 
 module.exports = router;

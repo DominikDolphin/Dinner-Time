@@ -3,9 +3,9 @@ var userCart = [];
 
 //adds a item from systems to the cart
 module.exports.addItem = (inItem) => {
-    console.log("Adding cart" + inItem.packageName);
+    console.log("Adding cart" + inItem[0].packageName);
     return new Promise((resolve, reject) => {
-        userCart.push(inItem);
+        userCart.push(inItem[0]);
         resolve(userCart.length);
     });
 }
@@ -14,7 +14,7 @@ module.exports.addItem = (inItem) => {
 module.exports.removeItem = (inItem) => {
     return new Promise((resolve, reject) => {
         for (var i = 0; i < userCart.length; i++) {
-            if (userCart[i].name == inItem) {
+            if (userCart[i].packageName == inItem) {
                 userCart.splice(i, 1);
                 i = userCart.length;
             }
@@ -36,7 +36,7 @@ module.exports.checkout = () => {
         var price = 0; //if check if car is empty
         if (userCart) {
             userCart.forEach(x => {
-                price += x.price;
+                price += Number(x.packagePrice);
             });
         }
         resolve(price);
