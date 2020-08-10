@@ -17,10 +17,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
+function ensureLogin(req, res, next) {
+    if (!req.session.user) {
+        res.redirect("/Login");
+    } else {
+        next();
+    }
+}
+
 //Setup client-sessions
 app.use(clientSessions({
     cookieName: "session", // this is the object name that will be added to 'req'
-    secret: "@Dominik_1s_th3.Great3st!", // this should be a long un-guessable string.
+    //secret: process.env.CLIENT_SESSION_STRING, // this should be a long un-guessable string.
+    secret: "AHaha_Doms)t3h_bastttte",
     duration: 2 * 60 * 1000, // duration of the session in milliseconds (2 minutes)
     activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
 }));
@@ -30,13 +39,6 @@ app.get("/logout", (req, res) => {
     res.redirect("/Login");
 });
 
-function ensureLogin(req, res, next) {
-    if (!req.session.user) {
-        res.redirect("/Login");
-    } else {
-        next();
-    }
-}
 
 //app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -49,12 +51,13 @@ const genController = require("./controller/general");
 const registrationController = require("./controller/registration");
 const loginController = require("./controller/login");
 const usersController = require("./controller/users");
+const dashboardController = require("./controller/dashboard");
 
 db.initialize()
     .then(() => {
         console.log("Data read successfully");
         app.listen(PORT, () => {
-            console.log("Web server is up and running");
+            console.log("Web server is up and running on Port: " + PORT);
         });
     })
     .catch((data) => {
@@ -66,7 +69,4 @@ app.use("/", genController);
 app.use("/Login", loginController);
 app.use("/Register", registrationController);
 app.use("/users", usersController);
-//Create express web server
-/*app.listen(PORT, () => {
-    console.log("Web server is up and running");
-});*/
+app.use("/Dashboard", dashboardController);

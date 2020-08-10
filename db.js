@@ -12,15 +12,19 @@ let studentSchema = new Schema({
     international: Boolean
 });
 */
-let studentSchema = new Schema({
+let userSchema = new Schema({
     email: {
         type: String,
         unique: true
     },
     firstName: String,
     lastName: String,
-    password: String
-        //  international: Boolean
+    password: String,
+    admin: {
+        type: Boolean,
+        default: false
+    }
+    //  international: Boolean
 });
 
 let classSchema = new Schema({
@@ -31,9 +35,8 @@ let classSchema = new Schema({
 });
 
 //our local student/class template schemas
-let Students;
+let Users;
 
-let Classes;
 
 module.exports.initialize = function() {
     return new Promise((resolve, reject) => {
@@ -46,71 +49,34 @@ module.exports.initialize = function() {
         db.once('open', () => {
             //create a collection called "students" and "courses"
             //use the above schemas for their layout
-            Students = db.model("newusers", studentSchema);
-            Classes = db.model("courses", classSchema);
+            Users = db.model("newusers", userSchema);
+
             resolve();
         });
 
     });
 }
 
-/*
-module.exports.addStudent = function(data) {
+module.exports.addUser = function(data) {
     return new Promise((resolve, reject) => {
         //prep the incoming data 
-
-        //see if it has been "checked"
-        //data.international = (data.international) ? true : false;
-
-        //set data to null if an empty string ""
-        for (var formEntry in data) {
-            if (data[formEntry] == "")
-                data[formEntry] = null;
-        }
-
-        //add data
-        var newStudent = new Students(data);
-
-        newStudent.save((err) => {
-            if (err) {
-                console.log("Woopsie there was an error: " + err);
-                reject();
-            } else {
-                console.log("Saved that student: " + data.firstName);
-                resolve();
-            }
-        });
-    });
-}
-*/
-module.exports.addStudent = function(data) {
-    return new Promise((resolve, reject) => {
-        //prep the incoming data 
-
+        console.log("made it here");
         //see if it has been "checked"
         data.international = (data.international) ? true : false;
 
-        //set data to null if an empty string ""
-
-
-        //for-in loops the variable that we loop with is a copy. 
         for (var formEntry in data) {
             if (data[formEntry] == "") //lets just say this works the way we want
                 data[formEntry] = null;
         }
-
-        //add data to based off local Student Collection
-        //local only so data is not pushed to mongo
-        //NOTE: only works if the field names are the same. "Name" vs "name" doesn't work. 
-        var newStudent = new Students(data); //copy constructor   
+        var newUser = new Users(data); //copy constructor   
         //add hashed password
         bcrypt.genSalt(10) // Generate a "salt" using 10 rounds
-            .then(salt => bcrypt.hash(newStudent.password, salt)) // use the generated "salt" to encrypt the password: "myPassword123"
+            .then(salt => bcrypt.hash(newUser.password, salt)) // use the generated "salt" to encrypt the password: "myPassword123"
             .then(hash => { //returns encrypted password
                 // TODO: Store the resulting "hash" value in the DB
-                newStudent.password = hash;
+                newUser.password = hash;
                 //tries to save entry in our database
-                newStudent.save((err) => {
+                newUser.save((err) => {
                     if (err) {
                         console.log("Woopsie there was an error: " + err);
                         reject(err);
@@ -129,16 +95,12 @@ module.exports.addStudent = function(data) {
     });
 }
 
-
-
-
-
-module.exports.getStudents = function(data) {
+module.exports.getUsers = function(data) {
     return new Promise((resolve, reject) => {
-        Students.find()
+        Users.find()
             .exec() //tells mongoose that we should run this find as a promise.
-            .then((returnedStudents) => {
-                resolve(filteredMongoose(returnedStudents));
+            .then((returnedUsers) => {
+                resolve(filteredMongoose(returnedUsers));
             }).catch((err) => {
                 console.log("Error Retriving students:" + err);
                 reject(err);
@@ -146,29 +108,15 @@ module.exports.getStudents = function(data) {
     });
 }
 
-module.exports.getAllCarsP = () => {
-    return new Promise((resolve, reject) => {
-        if (Students.length == 0) {
-            reject("There are no cars available");
-            return;
-        } else {
-            setTimeout(() => {
-                resolve(Students);
-                return;
-            }, 1000);
-        }
-    });
-}
-
-module.exports.getStudentsByEmail = function(inEmail) {
+module.exports.getUsersByEmail = function(inEmail) {
     return new Promise((resolve, reject) => {
         //email has to be spelled the same as in the data base
-        Students.find({ email: inEmail }) //gets all and returns an array. Even if 1 or less entries
+        Users.find({ email: inEmail }) //gets all and returns an array. Even if 1 or less entries
             .exec() //tells mongoose that we should run this find as a promise.
-            .then((returnedStudents) => {
-                if (returnedStudents.length != 0)
+            .then((returnedUsers) => {
+                if (returnedUsers.length != 0)
                 //resolve(filteredMongoose(returnedStudents));
-                    resolve(returnedStudents.map(item => item.toObject()));
+                    resolve(returnedUsers.map(item => item.toObject()));
                 else
                     reject("No Students found");
             }).catch((err) => {
@@ -177,9 +125,6 @@ module.exports.getStudentsByEmail = function(inEmail) {
             });
     });
 }
-
-
-
 
 const filteredMongoose = (arrayOfMongooseDocuments) => {
     const tempArray = [];
@@ -193,28 +138,92 @@ const filteredMongoose = (arrayOfMongooseDocuments) => {
     return tempArray;
 };
 
-module.exports.validateUser = (data) => {
+module.exports.validateUserRegistration = (data) => {
     return new Promise((resolve, reject) => {
-        if (data) {
-            this.getStudentsByEmail(data.email).then((retStudent) => {
-                //get the data and check if passwords match hash
-                // first is non-hashed pw, vs 2nd which is a hashed pw
-                bcrypt.compare(data.password, retStudent[0].password).then((result) => {
-                    if (result) {
-                        //for added security is return a student object w/o password
-                        resolve(retStudent);
-                        //resolve and pass the user back
-                    } else {
-                        reject("password don't match");
-                        return;
-                        //reject pass error
-                    }
-                    // result === true
+        data.errors = [];
+        const regex = RegExp("/[a-zA-Z0-9]{6,12}/");
+        const name = RegExp("/[a-zA-Z]{3,20}/");
+        if (data.firstName == "") {
+            data.errors.push("You must enter your first name");
+        }
+        if (data.firstName.match(name) == false) {
+            data.errors.push("First name can only contain letters, from 3 to 20");
+        }
+        if (data.lastName == "") {
+            data.errors.push("You must enter your last name");
+        }
+        if (data.lastName.match(name) == false) {
+            data.errors.push("Last name can only contain letters, from 3 to 20");
+        }
+        if (data.email == "") {
+            data.errors.push("You must enter an email");
+        }
+
+        if (data.password == "") {
+            data.errors.push("You must enter a password");
+        }
+
+        if ((data.password.match(regex)) == false) {
+            data.errors.push("Password must be between 6-12 characters");
+        }
+
+        if (data.confPass == "") {
+            data.errors.push("You must confirm Password");
+        }
+        if (data.confPass != data.password) {
+            data.errors.push("Passwords do not match");
+        }
+
+        if (data.errors.length > 0) {
+            reject(data);
+        } else {
+            this.getUsersByEmail(data.email)
+                .then((usr) => {
+                    data.errors.push("This email is already registered!");
+                    reject(data);
+                })
+                .catch(() => {
+                    resolve(data);
                 });
-            }).catch((err) => {
-                reject(err);
-                return;
-            });
         }
     });
 }
+
+module.exports.validateUserLogin = (data) => {
+    return new Promise((resolve, reject) => {
+        data.errors = [];
+
+        if (data.email == "") {
+            data.errors.push("Email is required");
+        }
+        if (data.password == "") {
+            data.errors.push("Password is required");
+        }
+        if (data.email == "" || data.email == "") {
+            reject(data);
+        }
+
+        this.getUsersByEmail(data.email)
+            .then((user) => {
+                bcrypt
+                    .compare(data.password, user[0].password)
+                    .then((res) => {
+                        if (res) {
+                            resolve(user[0]);
+                        } else {
+                            data.errors.push("Wrong password or email, please try again");
+                            reject(data);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("Cannot compare passwords " + err);
+                        reject(data);
+                    });
+            })
+            .catch((err) => {
+                console.log("Cannot get by email " + err);
+                data.errors.push("Wrong email or password, please try again");
+                reject(data);
+            });
+    });
+};

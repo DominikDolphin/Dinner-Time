@@ -2,27 +2,14 @@ const express = require('express');
 const router = express.Router();
 const userInfo = { mail: "" };
 const db = require("../db.js");
+const server = require("../server.js")
 
 router.get("/", (req, res) => {
     res.render("Login", {
         title: "Log in",
     });
 });
-/*
-router.post("/sendLogin", (req, res) => {
-    db.validateUser(req.body)
-        .then((inData) => {
-            req.session.user = inData[0]; //logs them in as a user
 
-            console.log(req.session.user);
-            res.render("users", { students: inData, session: req.session.user });
-        })
-        .catch((message) => {
-            console.log(`So this happened: ${message}`);
-            res.redirect("/Login");
-        });
-});
-*/
 //Shows the page
 router.get("/sendLogin", (req, res) => {
     res.render("Login", {
@@ -50,15 +37,20 @@ router.post("/sendLogin", (req, res) => {
     } else {
         //Chahge this to some page
         //res.redirect("/");
-
-        db.validateUser(req.body)
-
-        .then((inData) => {
+        let userInfo = {};
+        userInfo.email = req.body.email;
+        userInfo.password = req.body.password;
+        db.validateUserLogin(req.body)
+            .then((inData) => {
                 console.log(req.body);
-                req.session.user = inData[0]; //logs them in as a user
-
-                console.log(req.session.user);
-                res.render("users", { students: inData, session: req.session.user });
+                req.session.user = inData; //logs them in as a user
+                if (inData.admin) {
+                    res.redirect("/dashboard/DataClerk");
+                    console.log("Session user is an admin")
+                } else {
+                    res.redirect("/dashboard/Customer");
+                    console.log("Session user is a customer")
+                }
             })
             .catch((message) => {
                 console.log(req.body);
