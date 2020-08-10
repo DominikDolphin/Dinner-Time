@@ -4,10 +4,17 @@ const MealsDB = require("../model/Meals");
 const db = require("../db.js");
 
 router.get("/", (req, res) => {
-    res.render("home", {
-        title: "Home Page",
-        meals: MealsDB.getFeaturedMeals(4)
-    });
+
+    db.getFeaturedMeals().then((data) => {
+        res.render("home", {
+            title: "Home",
+            meals: data
+
+        });
+    }).catch((err) => {
+        console.log("Error loading packages")
+    })
+
 });
 
 router.get("/MealPackages", (req, res) => {

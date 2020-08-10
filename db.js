@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcryptjs');
+const multer = require("multer");
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
@@ -13,8 +14,9 @@ let userSchema = new Schema({
     admin: {
         type: Boolean,
         default: false
-    }
-    //  international: Boolean
+    },
+    img: String
+        //  international: Boolean
 });
 
 let mealPackageSchema = new Schema({
@@ -25,7 +27,6 @@ let mealPackageSchema = new Schema({
     packageName: String,
     packagePrice: Number,
     packageDescription: String,
-    packageCategory: String,
     packageNumberOfMeals: Number,
     featured: {
         type: Boolean,
@@ -34,7 +35,6 @@ let mealPackageSchema = new Schema({
     packageImageURL: String
 })
 
-//our local student/class template schemas
 let Users;
 let MealPackage;
 
@@ -47,8 +47,6 @@ module.exports.initialize = function() {
         });
 
         db.once('open', () => {
-            //create a collection called "students" and "courses"
-            //use the above schemas for their layout
             Users = db.model("newusers", userSchema);
             MealPackage = db.model("mealPackages", mealPackageSchema);
             resolve();
@@ -59,7 +57,7 @@ module.exports.initialize = function() {
 
 module.exports.getFeaturedMeals = () => {
     return new Promise((resolve, reject) => {
-        MealPackage.find({ top: true })
+        MealPackage.find({ featured: true })
             .exec()
             .then((packages) => {
                 resolve(packages.map((packages) => packages.toObject()));
@@ -315,7 +313,6 @@ module.exports.editPackage = (editData) => {
                     packageName: editData.packageName,
                     packagePrice: editData.packagePrice,
                     packageDescription: editData.packageDescription,
-                    packageCategory: editData.packageCategory,
                     packageNumberOfMeals: editData.packageNumberOfMeals,
                     packageImageURL: editData.packageImageURL,
                     featured: editData.featured
@@ -379,7 +376,7 @@ module.exports.deletePackageByID = (inID) => {
             }).catch(() => {
                 // reject();  //maybe a problem communicating with server
             });
-    }, 2000);
+    }, 4000);
 
 
     //});

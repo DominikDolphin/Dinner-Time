@@ -4,15 +4,15 @@
             <div class="col-md-3">First Name: {{user.firstName}}</div>
             <div class="col-md-3">Last Name:{{user.lastName}}</div>
             <div class="col-md-3">Email: {{user.email}}</div>
-            <div class="col-md-3">Password: {{user.password}}</div>
      </div>
 
     <button type="button" class="btn btn-danger" onclick="location.href='/Dashboard/Logout'">Logout</button>
-    <button type="button" class="btn btn-success" onclick="location.href='/Dashboard/createPackage'">Create new package</button>
+    
 
 
     {{#if user.admin}}
-    <h1>Welcome, Admin</h1>
+    <button type="button" class="btn btn-success" onclick="location.href='/Dashboard/createPackage'">Create new package</button>
+    
     <div class="row">
     {{#each packages}}
     <div class="col-sm-12 col-md-6 col-lg-3">
