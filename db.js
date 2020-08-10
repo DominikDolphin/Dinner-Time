@@ -200,7 +200,7 @@ module.exports.validateCreatePackage = (data) => {
         if (data.packageNumberOfMeals == "") { data.errors.push("You must enter the number of meals"); }
         if (data.packageImageURL == "") { data.errors.push("You must enter an image URL"); }
 
-        //Dont forget featured boolean <3
+        data.featured = (data.featured) ? true : false;
 
         if (data.errors.length > 0) {
             reject(data);
