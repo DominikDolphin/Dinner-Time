@@ -11,15 +11,8 @@ function ensureLogin(req, res, next) {
     }
 }
 
-function ensureAdmin(req, res, next) {
-    if (!req.session.user || !req.session.user.admin) {
-        res.redirect("/Login");
-    } else {
-        next();
-    }
-}
 
-router.get("/", (req, res) => {
+router.get("/", ensureLogin, (req, res) => {
     var cartData = {
         cart: [],
         total: 0

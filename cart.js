@@ -23,12 +23,14 @@ module.exports.removeItem = (inItem) => {
     });
 }
 
+
 //returns the cart array and all items
 module.exports.getCart = () => {
     return new Promise((resolve, reject) => {
         resolve(userCart);
     });
 }
+
 
 //calculates the price of all items in the cart
 module.exports.checkout = () => {

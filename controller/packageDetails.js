@@ -51,6 +51,14 @@ router.post("/placeOrder", ensureLogin, (req, res) => {
         cartData.cart = items;
         cart.checkout().then((total) => {
             cartData.total = total;
+
+            //Get all the item/information for email
+            let orderItems = "";
+            for (let i = 0; i < cartData.cart.length; i++) {
+                orderItems += `${cartData.cart[i].packageName} - ${cartData.cart[i].packagePrice}`
+                orderItems += `<br>`;
+            }
+
             const sgMail = require('@sendgrid/mail');
             sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
             const msg = {
@@ -59,7 +67,7 @@ router.post("/placeOrder", ensureLogin, (req, res) => {
                 subject: 'Dinner Time Order Placed',
                 html: `Thank you ${req.session.user.firstName} for placing an order. Your total comes out to ${cartData.total}.<br>
                 Your order: <br>
-                ${cartData.cart}`,
+                ${orderItems}`,
             };
             sgMail.send(msg)
                 .then(() => {
@@ -111,7 +119,7 @@ router.post("/removeItem", (req, res) => { //return the cart to re-render the pa
         })
 });
 
-router.get("/cart", (req, res) => {
+router.get("/cart", ensureLogin, (req, res) => {
     var cartData = {
         cart: [],
         total: 0

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const MealsDB = require("../model/Meals");
 const db = require("../db.js");
 
 router.get("/", (req, res) => {
