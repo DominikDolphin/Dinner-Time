@@ -124,19 +124,26 @@
             </div>
             <div class="col-md-3">
                 <h3>{{packageName}}</h3>
+                <p>{{packageDescription}}</p>
             </div>
             <div class="col-md-3">
-                <h4>${{price}}</h4>
+                <h4>${{packagePrice}}</h4>
             </div>
 
             <div class="col-md-3">
                 <!-- Creates add to cart button -->
-
+                
                 <button type="button" onclick='addToCart("{{packageName}}")'>Add to Cart</button>
+           
             </div>
         </div>
         <hr>
         {{/each}}
+        <div class="row">
+        <a href="/MealPackages" class="btn btn-primary col-md-4 col-sm-4">Back</a>
+        <a href="/packages/cart" class="btn btn-warning col-md-8 col-sm-8">Place Order</a>
+        </div>
+        <!--<button type="button" onclick='addToCart("{{packageName}}")'>Add to Cart</button>-->
     </div>
 </body>
 

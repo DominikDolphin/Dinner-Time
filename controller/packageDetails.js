@@ -42,6 +42,43 @@ router.get("/", ensureLogin, (req, res) => {
     }
 })
 
+router.post("/placeOrder", ensureLogin, (req, res) => {
+    var cartData = {
+        cart: [],
+        total: 0
+    };
+    cart.getCart().then((items) => {
+        cartData.cart = items;
+        cart.checkout().then((total) => {
+            cartData.total = total;
+            const sgMail = require('@sendgrid/mail');
+            sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+            const msg = {
+                to: "dominik.thibaudeau@gmail.com",
+                from: "dominik.thibaudeau@gmail.com",
+                subject: 'Dinner Time Order Placed',
+                html: `Thank you ${req.session.user.firstName} for placing an order. Your total comes out to ${cartData.total}.<br>
+                Your order: <br>
+                ${cartData.cart}`,
+            };
+            sgMail.send(msg)
+                .then(() => {
+
+
+                    res.redirect("/dashboard/Customer");
+                })
+                .catch(err => {
+                    console.log(`Error ${err}`);
+                })
+        }).catch((err) => {
+            console.log("Error in registration: " + err);
+        })
+    }).catch((err) => {
+        console.log("oopsie: " + err);
+        res.redirect("/");
+    })
+});
+
 router.post("/addProduct", (req, res) => {
     console.log("Adding prod with name: " + req.body.name);
     db.getPackageByName(req.body.name)

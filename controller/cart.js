@@ -2,6 +2,23 @@ const express = require('express')
 const router = express.Router();
 const db = require("../db.js");
 const cart = require("../cart.js")
+
+function ensureLogin(req, res, next) {
+    if (!req.session.user) {
+        res.redirect("/Login");
+    } else {
+        next();
+    }
+}
+
+function ensureAdmin(req, res, next) {
+    if (!req.session.user || !req.session.user.admin) {
+        res.redirect("/Login");
+    } else {
+        next();
+    }
+}
+
 router.get("/", (req, res) => {
     var cartData = {
         cart: [],
@@ -21,5 +38,7 @@ router.get("/", (req, res) => {
             res.send("There was an error: " + err);
         });
 });
+
+
 
 module.exports = router;
